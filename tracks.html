@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracks | Opus Society</title>
+  <meta name="description" content="The Opus Society at Clemson University, a competitive two-year fellowship preparing students for careers in public service, policy, law, and government." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    :root {
+      --navy:   #0F1E38;
+      --navy2:  #1B2A4A;
+      --gold:   #C9A84C;
+      --gold-lt:#E2C97E;
+      --cream:  #F8F5EE;
+      --cream2: #EDE9DF;
+      --text:   #2A2A2A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem; height: 72px;
+      background: rgba(15,30,56,.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.2);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+    .nav-wordmark { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 500; letter-spacing: .28em; color: #fff; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a { font-size: .7rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { font-size: .7rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: .55rem 1.4rem; text-decoration: none; flex-shrink: 0; transition: background .2s; }
+    .nav-cta:hover { background: var(--gold-lt); }
+
+    /* ── HAMBURGER ───────────────────────────────────────── */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; background: none; border: none; padding: .4rem; z-index: 200; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: rgba(255,255,255,.85); transition: transform .25s, opacity .25s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: rgba(15,30,56,.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,.2); z-index: 99; padding: 1.6rem 1.4rem 2rem; flex-direction: column; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: .8rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); text-decoration: none; padding: 1rem 0; border-bottom: 1px solid rgba(201,168,76,.1); transition: color .2s; }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu a:last-of-type { border-bottom: none; }
+    .mobile-menu .mobile-cta { margin-top: 1.2rem; background: var(--gold); color: var(--navy); text-align: center; padding: .9rem; font-weight: 400; border-bottom: none; }
+
+    /* ── SECTION BASE ────────────────────────────────────── */
+    .section { padding: 7rem 4rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: .65rem; font-weight: 300; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; color: var(--navy2); margin-bottom: 1.4rem; }
+    .section-rule { width: 48px; height: 1px; background: var(--gold); margin-bottom: 2rem; }
+    .body-text { font-size: .96rem; font-weight: 300; line-height: 1.85; color: #4a4a4a; max-width: 640px; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer { background: var(--navy); border-top: 1px solid rgba(201,168,76,.15); }
+    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 4rem; padding: 4rem 4rem 3rem; align-items: start; }
+    .footer-brand { display: flex; flex-direction: column; gap: .5rem; }
+    .footer-logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: .4rem; }
+    .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; letter-spacing: .22em; color: rgba(255,255,255,.7); }
+    .footer-location { font-size: .7rem; font-weight: 300; letter-spacing: .1em; color: rgba(255,255,255,.35); }
+    .footer-motto { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 300; font-style: italic; color: var(--gold); margin-top: .2rem; }
+    .footer-nav { display: flex; gap: 3.5rem; }
+    .footer-col { display: flex; flex-direction: column; gap: .55rem; min-width: 140px; }
+    .footer-col-head { font-size: .65rem; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+    .footer-col a { font-size: .78rem; font-weight: 300; color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+    .footer-col a:hover { color: rgba(255,255,255,.85); }
+    .footer-col-note { font-size: .7rem; font-weight: 300; color: rgba(255,255,255,.25); line-height: 1.6; margin-top: .4rem; max-width: 200px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.06); padding: 1.2rem 4rem; text-align: center; }
+    .footer-bottom p { font-size: .68rem; color: rgba(255,255,255,.2); font-weight: 300; letter-spacing: .04em; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.4rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .section { padding: 5rem 1.6rem; }
+      footer { flex-direction: column; gap: 1.5rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.6rem 2rem; }
+      .footer-nav { flex-direction: column; gap: 2rem; }
+      .footer-bottom { padding: 1.2rem 1.6rem; }
+    }
+  </style>
+  <style>
+    .page-hero { background: var(--navy2); padding: 7rem 4rem 5rem; border-bottom: 1px solid rgba(201,168,76,.15); }
+    .page-hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 300; color: #fff; line-height: 1.08; margin: .5rem 0 1.2rem; }
+    .page-hero-sub { font-size: clamp(.95rem, 1.5vw, 1.1rem); font-weight: 300; color: rgba(255,255,255,.65); max-width: 680px; line-height: 1.8; }
+    .active-page { color: var(--gold) !important; }
+    .btn-primary { font-size: .75rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: .9rem 2.2rem; text-decoration: none; display: inline-block; transition: background .2s, transform .15s; }
+    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-outline { font-size: .75rem; font-weight: 300; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.85); border: 1px solid rgba(201,168,76,.45); padding: .9rem 2.2rem; text-decoration: none; display: inline-block; transition: border-color .2s, color .2s; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .fellowship-spot { background: var(--navy); padding: 2rem; border-top: 2px solid var(--gold); }
+    .fellowship-spot .fs-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; color: var(--gold); margin-bottom: .5rem; }
+    .fellowship-spot .fs-amount { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: .8rem; }
+    .fellowship-spot p { font-size: .88rem; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,.65); }
+    .fellowship-spot .fs-link { display: inline-block; margin-top: 1rem; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(201,168,76,.3); padding-bottom: 2px; transition: border-color .2s; }
+    .fellowship-spot .fs-link:hover { border-color: var(--gold); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .55rem; }
+    .skill-tag { font-size: .72rem; font-weight: 400; letter-spacing: .03em; color: var(--navy2); background: #fff; border: 1px solid rgba(201,168,76,.4); border-radius: 100px; padding: .45rem 1.05rem; }
+    .quiz-tool { background: var(--navy); border: 1px solid rgba(201,168,76,.2); padding: 3rem; margin-top: 3rem; position: relative; overflow: hidden; }
+    .quiz-progress { font-size: .68rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.6rem; }
+    .quiz-tool-q { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 300; font-style: italic; color: #fff; line-height: 1.5; margin-bottom: 2rem; max-width: 620px; }
+    .quiz-tool-options { display: flex; flex-direction: column; gap: .8rem; }
+    .quiz-tool-opt { text-align: left; background: rgba(255,255,255,.03); border: 1px solid rgba(201,168,76,.3); color: rgba(255,255,255,.85); font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 300; line-height: 1.5; padding: 1rem 1.4rem; cursor: pointer; transition: background .2s, border-color .2s; }
+    .quiz-tool-opt:hover { background: rgba(201,168,76,.1); border-color: var(--gold); }
+    .quiz-result { display: none; }
+    .quiz-result-head { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem; }
+    .quiz-result-icon { width: 52px; height: 52px; border: 1.5px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .quiz-result-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.2; }
+    .quiz-result-eyebrow { font-size: .65rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+    .quiz-result-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: #fff; }
+    .quiz-result-blurb { font-size: .92rem; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,.7); max-width: 620px; margin-bottom: 1.8rem; }
+    .quiz-result-actions { display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; }
+    .quiz-cta { font-size: .75rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: .85rem 1.8rem; border: none; text-decoration: none; display: inline-block; cursor: pointer; transition: background .2s; }
+    .quiz-cta:hover { background: var(--gold-lt); }
+    .quiz-retake { font-size: .75rem; font-weight: 300; letter-spacing: .1em; color: rgba(255,255,255,.45); background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .quiz-retake:hover { color: rgba(255,255,255,.75); }
+
+    /* ── TRACK EXPLORER (tabbed) ──────────────────────────── */
+    .track-tabs { display: flex; gap: .5rem; flex-wrap: wrap; border-bottom: 1px solid var(--cream2); margin-bottom: 3rem; }
+    .track-tab { font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 400; letter-spacing: .06em; color: #888; background: none; border: none; border-bottom: 2px solid transparent; padding: 1rem 1.4rem; cursor: pointer; transition: color .2s, border-color .2s; margin-bottom: -1px; }
+    .track-tab:hover { color: var(--navy2); }
+    .track-tab.active { color: var(--navy2); border-bottom-color: var(--gold); font-weight: 500; }
+    .track-panel { background: #fff; border: 1px solid var(--cream2); padding: 3rem; }
+    .track-panel-header { display: flex; align-items: center; gap: 1.4rem; margin-bottom: 1.6rem; }
+    .track-panel-icon { width: 52px; height: 52px; border: 1.5px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .track-panel-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.2; }
+    .track-panel-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 400; color: var(--navy); }
+    .track-panel-sub { font-size: .82rem; font-weight: 300; color: #888; margin-top: .2rem; }
+    .track-panel-desc { font-size: .96rem; font-weight: 300; line-height: 1.85; color: #4a4a4a; margin-bottom: 1.8rem; }
+    section[id] { scroll-margin-top: 90px; }
+    @media (max-width: 768px) {
+      .page-hero { padding: 6rem 1.6rem 3.5rem; }
+      .two-col { grid-template-columns: 1fr; gap: 2rem; }
+      .quiz-tool { padding: 2rem 1.6rem; }
+      .track-panel { padding: 2rem 1.6rem; }
+      .track-panel-title { font-size: 1.5rem; }
+      .track-tabs { gap: 0; }
+      .track-tab { padding: .8rem .9rem; font-size: .7rem; }
+    }</style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><svg width="36" height="36" viewBox="160 270 170 140" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 240 310 L 330 310" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M 240 370 L 330 370" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="240" y1="326" x2="330" y2="326" stroke="#C9A84C" stroke-width="0.75" opacity="0.4"/>
+        <line x1="240" y1="354" x2="330" y2="354" stroke="#C9A84C" stroke-width="0.75" opacity="0.4"/>
+        <circle cx="240" cy="340" r="42" fill="#0F1E38" stroke="#C9A84C" stroke-width="1.5"/>
+        <circle cx="240" cy="340" r="33" fill="none" stroke="#C9A84C" stroke-width="0.75" opacity="0.4"/>
+      </svg><span class="nav-wordmark">OPUS SOCIETY</span></a>
+    <ul class="nav-links">
+      <li><a href="mission.html">Mission</a></li>
+      <li><a href="program.html">Program</a></li>
+      <li><a href="tracks.html" class="active-page">Tracks</a></li>
+      <li><a href="governance.html">Governance</a></li>
+      <li><a href="apply.html">Apply</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <a href="apply.html" class="nav-cta">Apply Now</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="mission.html">Mission</a>
+    <a href="program.html">Program</a>
+    <a href="tracks.html" class="active-page">Tracks</a>
+    <a href="governance.html">Governance</a>
+    <a href="apply.html">Apply</a>
+    <a href="faq.html">FAQ</a>
+  </div>
+
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <span class="section-label">Specialization</span>
+    <h1 class="page-hero-title">Career Tracks</h1>
+    <p class="page-hero-sub">Beginning in Semester 2, every fellow declares a career track that shapes their mentorship, deliverables, and professional connections for the rest of the fellowship.</p>
+  </div>
+
+  <!-- WHICH TRACK -->
+  <section class="section" style="background:var(--cream); padding-bottom:3rem;">
+    <div class="section-inner">
+      <span class="section-label">Finding Your Direction</span>
+      <h2 class="section-title">Which Track Is Right for You?</h2>
+      <div class="section-rule"></div>
+      <p class="body-text" style="max-width:680px;">Answer honestly. "Not sure yet" is a real option.</p>
+
+      <div class="quiz-tool" id="trackQuiz">
+        <div class="quiz-progress" id="quizProgress">Question 1 of 5</div>
+        <div id="quizPanels"></div>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORE THE TRACKS -->
+  <section class="section" id="tracks-explorer" style="background:var(--cream); padding-top:1rem;">
+    <div class="section-inner">
+      <div class="track-tabs" id="trackTabs">
+        <button type="button" class="track-tab active" data-track="law">Law &amp; Justice</button>
+        <button type="button" class="track-tab" data-track="policy">Government &amp; Policy</button>
+        <button type="button" class="track-tab" data-track="intl">International Affairs</button>
+      </div>
+      <div class="track-panel" id="trackPanel"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="background:var(--navy); text-align:center;">
+    <div class="section-inner" style="max-width:640px;">
+      <h2 class="section-title" style="color:#fff; border-color:var(--gold);">Not sure which track yet?</h2>
+      <div class="section-rule"></div>
+      <p style="font-weight:300; line-height:1.85; color:rgba(255,255,255,.72); margin-bottom:2rem;">Apply. Get in. Use Semester 1 and your mentor to figure it out before you have to declare. The fellowship is designed for exactly this moment.</p>
+      <a href="apply.html" class="btn-primary">Apply to the Fellowship</a>
+      <a href="program.html" class="btn-outline" style="margin-left:1.2rem;">See the Program</a>
+    </div>
+  </section>
+
+
+<!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+
+      <!-- Logo + tagline -->
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <svg width="36" height="36" viewBox="160 270 170 140" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 240 310 L 330 310" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M 240 370 L 330 370" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="240" y1="326" x2="330" y2="326" stroke="#C9A84C" stroke-width="0.75" opacity="0.4"/>
+            <line x1="240" y1="354" x2="330" y2="354" stroke="#C9A84C" stroke-width="0.75" opacity="0.4"/>
+            <circle cx="240" cy="340" r="42" fill="#0F1E38" stroke="#C9A84C" stroke-width="1.5"/>
+            <circle cx="240" cy="340" r="33" fill="none" stroke="#C9A84C" stroke-width="0.75" opacity="0.4"/>
+          </svg>
+          <span class="footer-name">OPUS SOCIETY</span>
+        </div>
+        <p class="footer-location">Clemson University &nbsp;·&nbsp; Established Fall 2026</p>
+        <p class="footer-motto">Opening Pathways for Undergraduate Service</p>
+      </div>
+
+      <!-- Nav columns -->
+      <div class="footer-nav">
+        <div class="footer-col">
+          <p class="footer-col-head">Explore</p>
+          <a href="mission.html">Mission</a>
+          <a href="program.html">Program</a>
+          <a href="tracks.html">Tracks</a>
+          <a href="governance.html">Leadership</a>
+          <a href="faq.html">FAQ</a>
+          <a href="apply.html">Apply</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-head">The Fellowship</p>
+          <a href="program.html">Four-Semester Curriculum</a>
+          <a href="tracks.html">Law &amp; Justice</a>
+          <a href="tracks.html">Government &amp; Policy</a>
+          <a href="tracks.html">International Affairs</a>
+          <a href="governance.html">Executive Board</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-head">Questions?</p>
+          <a href="mailto:opusclemson@gmail.com">opusclemson@gmail.com</a>
+          <a href="https://instagram.com/opus.clemson" target="_blank">@opus.clemson</a>
+          <a href="https://opusclemson.org">opusclemson.org</a>
+          <p class="footer-col-note">We typically respond within 48 hours. For application questions, check the FAQ above before reaching out.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Opus Society at Clemson University. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    /* ── SHARED TRACK DATA ──────────────────────────────────
+       Powers both the tabbed explorer below and the quiz result. */
+    const trackInfo = {
+      law: {
+        title: 'Law & Justice',
+        sub: 'Public defenders · Civil rights · Federal prosecution',
+        desc: "Fellows build toward law school admissions: legal writing, case analysis, and the record competitive law schools and federal legal programs select for.",
+        icon: '<path d="M12 3L3 9v6l9 6 9-6V9L12 3z"/><line x1="12" y1="3" x2="12" y2="21"/>',
+        tags: ['Public Defender', 'Civil Rights Attorney', 'Federal Prosecutor', 'Legal Writing', 'Case Analysis', 'Oral Advocacy'],
+        fellowship: { name: 'Truman Scholarship', amount: 'Up to $30,000 · Junior year', blurb: "The nation's premier undergraduate public service award, built toward from Semester 1.", url: 'https://www.truman.gov', label: 'truman.gov' }
+      },
+      policy: {
+        title: 'Government & Policy',
+        sub: 'Federal agencies · Congressional staffing · Think tanks',
+        desc: "Fellows build toward federal and congressional work: policy analysis, briefing writing, and how government actually runs from the inside.",
+        icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+        tags: ['Congressional Staffer', 'Policy Analyst', 'Think Tank Researcher', 'Policy Memos', 'Briefing Documents', 'Data Analysis'],
+        fellowship: { name: 'Truman Scholarship', amount: 'Up to $30,000 · Junior year', blurb: "The nation's premier undergraduate public service award, built toward from Semester 1.", url: 'https://www.truman.gov', label: 'truman.gov' }
+      },
+      intl: {
+        title: 'International Affairs',
+        sub: 'Diplomacy · National security · Foreign policy',
+        desc: "Fellows build toward Foreign Service and international careers: regional expertise, language study, and foreign policy writing.",
+        icon: '<circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+        tags: ['Foreign Service Officer', 'National Security Analyst', 'USAID Program Officer', 'Foreign Policy Analysis', 'Area Studies', 'Language Proficiency'],
+        fellowship: { name: 'Boren Scholarship', amount: 'Up to $25,000 · Undergraduate', blurb: 'Funds language study abroad in regions critical to U.S. interests.', url: 'https://www.borenawards.org', label: 'borenawards.org' }
+      }
+    };
+
+    /* ── TRACK EXPLORER (tabs) ───────────────────────────── */
+    const tabsEl = document.getElementById('trackTabs');
+    const panelEl = document.getElementById('trackPanel');
+
+    function renderTrackPanel(key) {
+      const t = trackInfo[key];
+      panelEl.innerHTML = `
+        <div class="track-panel-header">
+          <div class="track-panel-icon"><svg viewBox="0 0 24 24">${t.icon}</svg></div>
+          <div>
+            <div class="track-panel-title">${t.title}</div>
+            <div class="track-panel-sub">${t.sub}</div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div>
+            <p class="track-panel-desc">${t.desc}</p>
+            <div class="skill-tags">${t.tags.map(tag => `<span class="skill-tag">${tag}</span>`).join('')}</div>
+          </div>
+          <div class="fellowship-spot">
+            <div class="fs-name">${t.fellowship.name}</div>
+            <div class="fs-amount">${t.fellowship.amount}</div>
+            <p>${t.fellowship.blurb}</p>
+            <a href="${t.fellowship.url}" target="_blank" class="fs-link">${t.fellowship.label}</a>
+          </div>
+        </div>
+      `;
+      tabsEl.querySelectorAll('.track-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.track === key);
+      });
+    }
+
+    tabsEl.querySelectorAll('.track-tab').forEach(tab => {
+      tab.addEventListener('click', () => renderTrackPanel(tab.dataset.track));
+    });
+
+    function goToTrack(key) {
+      renderTrackPanel(key);
+      document.getElementById('tracks-explorer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    renderTrackPanel('law');
+
+    /* ── TRACK-FINDER QUIZ ─────────────────────────────────
+       Five short questions. The first four score toward a track;
+       the fifth checks confidence and can override to "not sure yet." */
+    (function () {
+      const questions = [
+        {
+          q: "When you picture the work that matters most to you, what are you picturing?",
+          options: [
+            { text: "Standing in front of a specific person or client, defending or representing them.", track: 'law' },
+            { text: "A room where policy actually gets decided, and who it affects at scale.", track: 'policy' },
+            { text: "How the United States relates to the rest of the world.", track: 'intl' }
+          ]
+        },
+        {
+          q: "Which of these classes sounds most interesting to you?",
+          options: [
+            { text: "Constitutional Law or Criminal Procedure.", track: 'law' },
+            { text: "Public Administration or American Political Institutions.", track: 'policy' },
+            { text: "Comparative Politics or International Relations Theory.", track: 'intl' }
+          ]
+        },
+        {
+          q: "If you had a totally free summer, which internship would you chase?",
+          options: [
+            { text: "A public defender's office or a civil rights organization.", track: 'law' },
+            { text: "A congressional office or a federal agency.", track: 'policy' },
+            { text: "An embassy, the State Department, or an international NGO.", track: 'intl' }
+          ]
+        },
+        {
+          q: "Five years from now, what moment would make you proudest?",
+          options: [
+            { text: "Winning a case that actually changed someone's life.", track: 'law' },
+            { text: "Writing a policy memo that becomes the basis for real legislation.", track: 'policy' },
+            { text: "Representing the United States somewhere else in the world.", track: 'intl' }
+          ]
+        },
+        {
+          q: "How sure are you about this, honestly?",
+          options: [
+            { text: "Very sure.", track: null, unsure: false },
+            { text: "I have a leaning.", track: null, unsure: false },
+            { text: "Not sure at all.", track: null, unsure: true }
+          ]
+        }
+      ];
+
+      let current = 0;
+      const answers = [];
+
+      const progressEl = document.getElementById('quizProgress');
+      const panelsEl = document.getElementById('quizPanels');
+      const resultEl = document.getElementById('quizResult');
+
+      function renderQuestion() {
+        const q = questions[current];
+        progressEl.textContent = `Question ${current + 1} of ${questions.length}`;
+        panelsEl.innerHTML = `
+          <p class="quiz-tool-q">${q.q}</p>
+          <div class="quiz-tool-options">
+            ${q.options.map((o, i) => `<button type="button" class="quiz-tool-opt" data-i="${i}">${o.text}</button>`).join('')}
+          </div>
+        `;
+        panelsEl.querySelectorAll('.quiz-tool-opt').forEach(btn => {
+          btn.addEventListener('click', () => {
+            answers.push(q.options[parseInt(btn.dataset.i, 10)]);
+            current++;
+            if (current < questions.length) {
+              renderQuestion();
+            } else {
+              showResult();
+            }
+          });
+        });
+      }
+
+      function trackButton(key) {
+        return `<button type="button" class="quiz-cta" data-goto="${key}">See the ${trackInfo[key].title} Track</button>`;
+      }
+
+      function wireGotoButtons() {
+        resultEl.querySelectorAll('[data-goto]').forEach(btn => {
+          btn.addEventListener('click', () => goToTrack(btn.dataset.goto));
+        });
+      }
+
+      function showResult() {
+        const tally = { law: 0, policy: 0, intl: 0 };
+        let unsure = false;
+        answers.forEach(a => {
+          if (a.unsure) unsure = true;
+          if (a.track) tally[a.track]++;
+        });
+
+        progressEl.style.display = 'none';
+        panelsEl.style.display = 'none';
+        resultEl.style.display = 'block';
+
+        if (unsure) {
+          resultEl.innerHTML = `
+            <div class="quiz-result-eyebrow">Your Result</div>
+            <p class="quiz-result-title" style="margin-bottom:1rem;">Start with Semester 1</p>
+            <p class="quiz-result-blurb">That's the most honest answer for most incoming fellows. Semester 1 is built specifically to help you figure this out with a mentor, before you have to declare a track in Semester 2.</p>
+            <div class="quiz-result-actions">
+              <a href="program.html" class="quiz-cta">See How Semester 1 Works</a>
+              <button type="button" class="quiz-retake">Retake the quiz</button>
+            </div>
+          `;
+        } else {
+          const max = Math.max(tally.law, tally.policy, tally.intl);
+          const winners = Object.keys(tally).filter(k => tally[k] === max);
+
+          if (winners.length > 1) {
+            const names = winners.map(k => trackInfo[k].title);
+            const last = names.pop();
+            const label = names.length ? `${names.join(', ')} and ${last}` : last;
+            resultEl.innerHTML = `
+              <div class="quiz-result-eyebrow">Your Result</div>
+              <p class="quiz-result-title" style="margin-bottom:1rem;">You're torn between ${label}</p>
+              <p class="quiz-result-blurb">That's fine this early. Both fit what you told us. Semester 1 is designed to help you close that gap with a mentor before you have to declare.</p>
+              <div class="quiz-result-actions">
+                ${winners.map(trackButton).join('')}
+                <button type="button" class="quiz-retake">Retake the quiz</button>
+              </div>
+            `;
+          } else {
+            const t = trackInfo[winners[0]];
+            resultEl.innerHTML = `
+              <div class="quiz-result-head">
+                <div class="quiz-result-icon"><svg viewBox="0 0 24 24">${t.icon}</svg></div>
+                <div>
+                  <div class="quiz-result-eyebrow">Your Result</div>
+                  <div class="quiz-result-title">${t.title}</div>
+                </div>
+              </div>
+              <p class="quiz-result-blurb">${t.desc}</p>
+              <div class="quiz-result-actions">
+                ${trackButton(winners[0])}
+                <button type="button" class="quiz-retake">Retake the quiz</button>
+              </div>
+            `;
+          }
+        }
+
+        wireGotoButtons();
+        const retake = resultEl.querySelector('.quiz-retake');
+        if (retake) {
+          retake.addEventListener('click', () => {
+            current = 0;
+            answers.length = 0;
+            resultEl.style.display = 'none';
+            resultEl.innerHTML = '';
+            progressEl.style.display = 'block';
+            panelsEl.style.display = 'block';
+            renderQuestion();
+          });
+        }
+      }
+
+      renderQuestion();
+    })();
+  </script>
+</body>
+</html>
